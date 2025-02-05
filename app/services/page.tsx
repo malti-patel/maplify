@@ -1,6 +1,6 @@
-import Services from "../components/services";
+import Services from "@/components/services";
 import { ArrowRight } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function ServicesPage() {
   return (
