@@ -9,6 +9,7 @@ import { MapPin, Phone, Mail } from "lucide-react"
 export default function ContactPage() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
   const [message, setMessage] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -20,7 +21,7 @@ export default function ContactPage() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, phone, message }),
       })
 
       if (!res.ok) throw new Error("Failed to send")
@@ -28,6 +29,7 @@ export default function ContactPage() {
       setStatus("success")
       setName("")
       setEmail("")
+      setPhone("")
       setMessage("")
     } catch {
       setStatus("error")
@@ -64,6 +66,19 @@ export default function ContactPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-700">
+                Phone
+              </label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder="04XX XXX XXX"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div>
