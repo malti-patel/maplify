@@ -1,36 +1,96 @@
+"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPin, Phone, Mail } from "lucide-react"
 
 export default function ContactPage() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setStatus("loading")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      })
+
+      if (!res.ok) throw new Error("Failed to send")
+
+      setStatus("success")
+      setName("")
+      setEmail("")
+      setMessage("")
+    } catch {
+      setStatus("error")
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
       <div className="grid md:grid-cols-2 gap-12">
         <div>
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">
                 Name
               </label>
-              <Input id="name" type="text" placeholder="Your Name" required />
+              <Input
+                id="name"
+                type="text"
+                placeholder="Your Name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div>
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
                 Email
               </label>
-              <Input id="email" type="email" placeholder="your@email.com" required />
+              <Input
+                id="email"
+                type="email"
+                placeholder="your@email.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div>
               <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-700">
                 Message
               </label>
-              <Textarea id="message" placeholder="How can we help you?" required />
+              <Textarea
+                id="message"
+                placeholder="How can we help you?"
+                required
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
             </div>
-            <Button type="submit" className="w-full">
-              Send Message
+            <Button type="submit" className="w-full" disabled={status === "loading"}>
+              {status === "loading" ? "Sending..." : "Send Message"}
             </Button>
+            {status === "success" && (
+              <p className="text-green-600 text-sm text-center">
+                Thanks! Your message has been sent — we&apos;ll be in touch soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-red-600 text-sm text-center">
+                Something went wrong. Please try again or call us directly.
+              </p>
+            )}
           </form>
         </div>
         <div className="bg-white rounded-lg shadow-xl p-8">
@@ -38,11 +98,11 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div className="flex items-start">
               <MapPin className="h-6 w-6 text-blue-600 mr-4 mt-1" />
-              <p>Tarneit, Victoria, 3029</p>
+              <p>Truganina, Victoria, 3029</p>
             </div>
             <div className="flex items-center">
               <Phone className="h-6 w-6 text-blue-600 mr-4" />
-              <p>(02) 1234 5678</p>
+              <p>0431 036 459</p>
             </div>
             <div className="flex items-center">
               <Mail className="h-6 w-6 text-blue-600 mr-4" />
@@ -60,4 +120,3 @@ export default function ContactPage() {
     </div>
   )
 }
-

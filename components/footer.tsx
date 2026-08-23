@@ -52,8 +52,8 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="text-xl font-semibold mb-4">Contact Us</h4>
-            <p>Tarneit, Victoria, 3029</p>
-            <p>Phone: (02) 1234 5678</p>
+            <p>Truganina, Victoria, 3029</p>
+            <p>Phone: 0431 036 459</p>
             <p>Email: info@maplify.com.au</p>
           </div>
         </div>

@@ -44,7 +44,7 @@ export default function PricingPage() {
           <div key={index} className="bg-white rounded-lg shadow-xl p-8 flex flex-col">
             <h2 className="text-2xl font-bold mb-4">{plan.name}</h2>
             <p className="text-4xl font-bold mb-6">
-              ${plan.price}
+              Starting from ${plan.price}
               <span className="text-base font-normal">/year</span>
             </p>
             <ul className="mb-8 flex-grow">

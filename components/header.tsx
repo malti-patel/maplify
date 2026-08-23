@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Calculator, Phone } from "lucide-react";
 import { Button } from "../components/ui/button";
@@ -45,9 +47,14 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <Button variant="outline" className="flex items-center space-x-2">
+        <Button
+          variant="outline"
+          className="flex items-center space-x-2"
+          onClick={() => (window.location.href = "tel:0431036459")}
+          type="button"
+        >
           <Phone className="h-4 w-4" />
-          <span>Call Us</span>
+          <span>Call Us: 0431036459</span>
         </Button>
       </div>
     </header>

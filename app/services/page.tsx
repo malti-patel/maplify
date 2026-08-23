@@ -1,8 +1,13 @@
+"use client";
+
 import Services from "@/components/services";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function ServicesPage() {
+  const router = useRouter();
+
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-center mb-8">Our Services</h1>
@@ -14,7 +19,12 @@ export default function ServicesPage() {
       </p>
       <Services />
       <div className="text-center mt-12">
-        <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+        <Button
+          type="button"
+          size="lg"
+          className="bg-blue-600 hover:bg-blue-700"
+          onClick={() => router.push("/contact")}
+        >
           Book a Consultation
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>

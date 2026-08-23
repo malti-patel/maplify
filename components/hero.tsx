@@ -1,8 +1,13 @@
+"use client"
+
 import { ArrowRight } from "lucide-react"
 import { Button } from "../components/ui/button"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 export default function Hero() {
+  const router = useRouter()
+
   return (
     <section className="py-20 px-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
       <div className="container mx-auto flex flex-col md:flex-row items-center">
@@ -11,7 +16,11 @@ export default function Hero() {
           <p className="text-xl mb-6">
             Maximize your returns and minimize your stress with our professional accounting services.
           </p>
-          <Button size="lg" className="bg-yellow-400 text-gray-800 hover:bg-yellow-300">
+          <Button
+            size="lg"
+            className="bg-yellow-400 text-gray-800 hover:bg-yellow-300"
+            onClick={() => router.push("/contact")}
+          >
             Enquire now
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
